@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adidas Sport Bisnis Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066CC',
+                        primaryDark: '#004C99',
+                        accent: '#003366',
+                        surface: '#F8FAFC',
+                        textDark: '#1a1a1a',
+                        textMuted: '#64748b',
+                        border: '#e2e8f0',
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+        }
+
+        :root {
+            --primary: #0066CC;
+            --primary-dark: #004C99;
+            --accent: #003366;
+            --text-dark: #1a1a1a;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-weight: 600;
+            padding: 16px 40px;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 102, 204, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 14px 36px;
+            border-radius: 100px;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 51, 102, 0.12);
+        }
+
+        .trust-badge {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .testimonial-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+        }
+
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Slider Styles */
+        .slider-container {
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .slider-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        .slider-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .product-slide {
+            flex: 0 0 auto;
+            width: 250px;
+            margin: 0 15px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .product-slide:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15);
+            transform: scale(1.02);
+        }
+
+        .product-slide img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-slide-content {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="https://websiteadidas.vercel.app/logo.png" alt="Logo" class="h-12 w-auto">
+                </div>
+                <a href="https://pendaftaran-kappa.vercel.app/" class="btn-primary py-3 px-6 text-sm">
+                    Daftar Sekarang
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-28 pb-16 md:pt-36 md:pb-24 bg-gradient-to-b from-blue-50 to-white overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="reveal font-display text-4xl md:text-5xl lg:text-6xl font-bold text-textDark leading-tight mb-6">
+                        Kerja dari Rumah,<br>
+                        <span class="text-primary">Gajian Harian</span>
+                    </h1>
+
+                    <p class="reveal reveal-delay-1 text-lg text-textMuted mb-8 leading-relaxed">
+                        Cara mudah menghasilkan uang dari rumah. Fleksibel, aman, dan terbukti membayar ribuan member setiap hari.
+                    </p>
+
+                    <div class="reveal reveal-delay-2 flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-10">
+                        <a href="https://pendaftaran-kappa.vercel.app/" class="btn-primary">
+                            Mulai Sekarang
+                        </a>
+                        <a href="#" class="btn-secondary">
+                            Login
+                        </a>
+                    </div>
+
+                    <!-- Trust Badge -->
+                    <div class="reveal reveal-delay-3">
+                        <div class="trust-badge inline-flex items-center gap-2 rounded-full px-5 py-3">
+                            <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-sm font-medium text-accent">100% Aman & Terpercaya</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="reveal reveal-delay-2 relative">
+                    <div class="relative z-10">
+                        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop" 
+                             alt="Adidas Sneaker" 
+                             class="rounded-3xl shadow-2xl w-full max-w-md mx-auto float-animation">
+                    </div>
+                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-blue-100 rounded-full opacity-60"></div>
+                    <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-50 rounded-full opacity-80"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white border-y border-gray-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-3 gap-8 text-center">
+                <div class="reveal">
+                    <p class="font-display text-3xl md:text-4xl font-bold text-primary mb-1">150+</p>
+                    <p class="text-sm text-textMuted">Member Aktif</p>
+                </div>
+                <div class="reveal reveal-delay-1">
+                    <p class="font-display text-3xl md:text-4xl font-bold text-primary mb-1">Rp 500jt+</p>
+                    <p class="text-sm text-textMuted">Total Withdraw</p>
+                </div>
+                <div class="reveal reveal-delay-2">
+                    <p class="font-display text-3xl md:text-4xl font-bold text-primary mb-1">24 Jam</p>
+                    <p class="text-sm text-textMuted">Proses Pembayaran</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section (Slider) -->
+    <section class="py-20 bg-gray-50 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 mb-12">
+            <div class="text-center">
+                <h2 class="reveal font-display text-3xl md:text-4xl font-bold text-textDark mb-4">
+                    Produk yang Anda Kerjakan
+                </h2>
+                <p class="reveal reveal-delay-1 text-textMuted max-w-xl mx-auto">
+                    Bekerja dengan brand ternama untuk tugas sederhana yang menghasilkan
+                </p>
+            </div>
+        </div>
+
+        <!-- Slider Container -->
+        <div class="reveal reveal-delay-2 slider-container">
+            <div class="slider-track">
+                <!-- Set 1 -->
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop" alt="Adidas Ultraboost">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Ultraboost</p>
+                        <p class="text-xs text-textMuted">Running Shoes</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=400&fit=crop" alt="Adidas NMD">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas NMD</p>
+                        <p class="text-xs text-textMuted">Streetwear</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400&h=400&fit=crop" alt="Adidas Tee">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas T-Shirt</p>
+                        <p class="text-xs text-textMuted">Originals</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop" alt="Adidas Cap">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Cap</p>
+                        <p class="text-xs text-textMuted">Headwear</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400&h=400&fit=crop" alt="Adidas Stan Smith">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Stan Smith</p>
+                        <p class="text-xs text-textMuted">Classic</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop" alt="Adidas Jacket">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Jacket</p>
+                        <p class="text-xs text-textMuted">Sportswear</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop" alt="Adidas Pants">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Pants</p>
+                        <p class="text-xs text-textMuted">Training</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop" alt="Adidas Backpack">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Backpack</p>
+                        <p class="text-xs text-textMuted">Bags</p>
+                    </div>
+                </div>
+
+                <!-- Set 2 (Duplicate for infinite scroll illusion) -->
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop" alt="Adidas Ultraboost">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Ultraboost</p>
+                        <p class="text-xs text-textMuted">Running Shoes</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=400&fit=crop" alt="Adidas NMD">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas NMD</p>
+                        <p class="text-xs text-textMuted">Streetwear</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400&h=400&fit=crop" alt="Adidas Tee">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas T-Shirt</p>
+                        <p class="text-xs text-textMuted">Originals</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop" alt="Adidas Cap">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Cap</p>
+                        <p class="text-xs text-textMuted">Headwear</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400&h=400&fit=crop" alt="Adidas Stan Smith">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Stan Smith</p>
+                        <p class="text-xs text-textMuted">Classic</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop" alt="Adidas Jacket">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Jacket</p>
+                        <p class="text-xs text-textMuted">Sportswear</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop" alt="Adidas Pants">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Pants</p>
+                        <p class="text-xs text-textMuted">Training</p>
+                    </div>
+                </div>
+                <div class="product-slide">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop" alt="Adidas Backpack">
+                    <div class="product-slide-content">
+                        <p class="font-semibold text-textDark">Adidas Backpack</p>
+                        <p class="text-xs text-textMuted">Bags</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="cara-kerja" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="reveal font-display text-3xl md:text-4xl font-bold text-textDark mb-4">
+                    Cara Kerja
+                </h2>
+                <p class="reveal reveal-delay-1 text-textMuted max-w-xl mx-auto">
+                    Hanya 4 langkah mudah untuk mulai menghasilkan
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="reveal card-hover bg-white rounded-2xl p-8 border border-gray-100 text-center">
+                    <div class="flex justify-center mb-6">
+                        <div class="step-number">1</div>
+                    </div>
+                    <h3 class="font-semibold text-lg text-textDark mb-2">Daftar Akun</h3>
+                    <p class="text-sm text-textMuted">Isi formulir, gratis dan cepat</p>
+                </div>
+
+                <div class="reveal reveal-delay-1 card-hover bg-white rounded-2xl p-8 border border-gray-100 text-center">
+                    <div class="flex justify-center mb-6">
+                        <div class="step-number">2</div>
+                    </div>
+                    <h3 class="font-semibold text-lg text-textDark mb-2">Pilih Tugas</h3>
+                    <p class="text-sm text-textMuted">Pilih sesuai minat Anda</p>
+                </div>
+
+                <div class="reveal reveal-delay-2 card-hover bg-white rounded-2xl p-8 border border-gray-100 text-center">
+                    <div class="flex justify-center mb-6">
+                        <div class="step-number">3</div>
+                    </div>
+                    <h3 class="font-semibold text-lg text-textDark mb-2">Kerjakan Tugas</h3>
+                    <p class="text-sm text-textMuted">Mudah, butuh 5-10 menit</p>
+                </div>
+
+                <div class="reveal reveal-delay-3 card-hover bg-white rounded-2xl p-8 border border-gray-100 text-center">
+                    <div class="flex justify-center mb-6">
+                        <div class="step-number">4</div>
+                    </div>
+                    <h3 class="font-semibold text-lg text-textDark mb-2">Terima Gaji</h3>
+                    <p class="text-sm text-textMuted">Langsung ke rekening</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="keunggulan" class="py-20 bg-gradient-to-b from-blue-50 to-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="reveal font-display text-3xl md:text-4xl font-bold text-textDark mb-4">
+                    Kenapa Pilih Kami?
+                </h2>
+                <p class="reveal reveal-delay-1 text-textMuted max-w-xl mx-auto">
+                    Bukti nyata, bukan janji kosong
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="reveal card-hover bg-white rounded-2xl p-8 border border-gray-100 flex gap-6">
+                    <div class="flex-shrink-0 w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.954 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg text-textDark mb-2">Terpercaya & Aman</h3>
+                        <p class="text-textMuted text-sm leading-relaxed">Sudah beroperasi lama. Ribuan member sudah dibayar tepat waktu tanpa kendala.</p>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-delay-1 card-hover bg-white rounded-2xl p-8 border border-gray-100 flex gap-6">
+                    <div class="flex-shrink-0 w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg text-textDark mb-2">Penghasilan Nyata</h3>
+                        <p class="text-textMuted text-sm leading-relaxed">Rata-rata member menghasilkan Rp 500rb - 2 juta per hari, tergantung kerja keras.</p>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-delay-2 card-hover bg-white rounded-2xl p-8 border border-gray-100 flex gap-6">
+                    <div class="flex-shrink-0 w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg text-textDark mb-2">Kerja dari Rumah</h3>
+                        <p class="text-textMuted text-sm leading-relaxed">Tidak perlu kemana-mana. Cukup HP dan internet, kerja dari mana saja.</p>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-delay-3 card-hover bg-white rounded-2xl p-8 border border-gray-100 flex gap-6">
+                    <div class="flex-shrink-0 w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg text-textDark mb-2">Tugas Sederhana</h3>
+                        <p class="text-textMuted text-sm leading-relaxed">Review produk, rating, survey. Semua mudah dipahami, tidak butuh keahlian khusus.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimoni" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="reveal font-display text-3xl md:text-4xl font-bold text-textDark mb-4">
+                    Kata Mereka
+                </h2>
+                <p class="reveal reveal-delay-1 text-textMuted max-w-xl mx-auto">
+                    Member yang sudah merasakan hasilnya
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="reveal testimonial-card card-hover rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold">
+                            SR
+                        </div>
+                        <div>
+                            <p class="font-semibold text-textDark">Siti Rahayu</p>
+                            <p class="text-xs text-textMuted">Jakarta</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-3">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-sm text-textMuted">"Awal ragu, tapi setelah coba ternyata beneran dibayar. Sekarang tiap hari bisa WFH sambil urus anak."</p>
+                </div>
+
+                <div class="reveal reveal-delay-1 testimonial-card card-hover rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold">
+                            AP
+                        </div>
+                        <div>
+                            <p class="font-semibold text-textDark">Ahmad Prasetyo</p>
+                            <p class="text-xs text-textMuted">Surabaya</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-3">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-sm text-textMuted">"Sudah 6 bulan gabung, hasil konsisten. Tugas gampang, tinggal review produk doang. Mantap!"</p>
+                </div>
+
+                <div class="reveal reveal-delay-2 testimonial-card card-hover rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-bold">
+                            DW
+                        </div>
+                        <div>
+                            <p class="font-semibold text-textDark">Dewi Wulandari</p>
+                            <p class="text-xs text-textMuted">Bandung</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-3">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-sm text-textMuted">"Mahasiswa jadi bisa cari uang sendiri. Waktu fleksibel, tinggal kerjain pas senggang."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="daftar" class="py-20 bg-gradient-to-b from-white to-blue-50">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="reveal bg-gradient-to-r from-blue-600 to-blue-800 rounded-3xl p-10 md:p-16 text-white">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">
+                    Siap Mulai Menghasilkan?
+                </h2>
+                <p class="text-blue-100 mb-8 max-w-xl mx-auto">
+                    Daftar gratis sekarang. Proses mudah, bisa mulai kerja dalam 5 menit. 
+                    Tidak ada biaya tersembunyi.
+                </p>
+                <a href="https://pendaftaran-kappa.vercel.app/" class="bg-white text-primary font-semibold px-10 py-4 rounded-full hover:shadow-xl transition-all hover:scale-105 inline-block">
+                    Daftar Gratis
+                </a>
+                <p class="text-blue-200 text-sm mt-4">Sudah 150+ member bergabung bulan ini</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <img src="https://websiteadidas.vercel.app/logo.png" alt="Logo" class="h-10 w-auto">
+                    <span class="font-semibold text-textDark">Adidas Sport Bisnis Indonesia</span>
+                </div>
+                <p class="text-sm text-textMuted">2024 Adidas Sport Bisnis Indonesia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
