@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pendaftaran Resmi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-black: #000000; --secondary-white: #FFFFFF; --bg-light: #F5F5F5;
+            --text-grey: #757575; --adidas-blue: #006EB6; --tailwind-blue: #3B82F6;
+            --focus-glow: rgba(59, 130, 246, 0.2); --error-color: #D32F2F;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif; background-color: var(--bg-light);
+            color: var(--primary-black); min-height: 100vh; display: flex;
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .card-container {
+            background: var(--secondary-white); width: 100%; max-width: 480px;
+            border-radius: 24px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.07); overflow: hidden;
+        }
+        .header-section { padding: 50px 40px 30px; text-align: center; }
+        .logo-img { width: 120px; height: auto; margin-bottom: 20px; background: transparent; }
+        .header-title { font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--primary-black); }
+        .header-subtitle { font-size: 0.9rem; color: var(--text-grey); margin-top: 5px; }
+        .form-section { padding: 10px 40px 40px; }
+        .form-group { margin-bottom: 20px; position: relative; }
+        label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-grey); margin-bottom: 8px; }
+        input {
+            width: 100%; padding: 14px 18px; font-size: 0.95rem; font-family: 'Inter', sans-serif;
+            background: #FAFAFA; border: 1.5px solid #E0E0E0; border-radius: 12px;
+            transition: all 0.3s ease; color: #333;
+        }
+        input:focus { background: #fff; border-color: var(--tailwind-blue); box-shadow: 0 0 0 4px var(--focus-glow); outline: none; }
+        input::placeholder { color: #A0A0A0; font-weight: 300; }
+        .error-msg { color: var(--error-color); font-size: 0.75rem; margin-top: 6px; padding-left: 5px; display: none; font-weight: 500; }
+        .checkbox-group { margin: 25px 0; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; user-select: none; }
+        .checkbox-group input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--adidas-blue); cursor: pointer; flex-shrink: 0; }
+        .checkbox-label { font-size: 0.85rem; color: #444; line-height: 1.5; cursor: pointer; }
+        .btn-submit {
+            width: 100%; padding: 16px; background: linear-gradient(135deg, var(--adidas-blue), var(--tailwind-blue));
+            color: white; border: none; border-radius: 50px; font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+            cursor: pointer; transition: transform 0.2s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(0, 110, 182, 0.3);
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 110, 182, 0.4); }
+        .btn-submit:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
+        .success-view { display: none; text-align: center; padding: 60px 40px; }
+        .icon-success { width: 70px; height: 70px; background: var(--bg-light); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--adidas-blue); }
+        .success-view h2 { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 1.5rem; color: var(--primary-black); }
+        .success-view p { color: var(--text-grey); font-size: 0.9rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card-container" id="mainCard">
+        <div class="header-section">
+            <img src="https://websiteadidas.vercel.app/logo.png" alt="Logo Adidas" class="logo-img">
+            <div class="header-title">Form Pendaftaran</div>
+            <div class="header-subtitle">Silakan isi data dengan benar</div>
+        </div>
+        <div class="form-section" id="formContent">
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="userid">User ID</label>
+                    <input type="text" id="userid" placeholder="Buat ID unik Anda" required>
+                    <div class="error-msg" id="useridError">User ID sudah digunakan.</div>
+                </div>
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" placeholder="Sesuai KTP / Identitas" required>
+                    <div class="error-msg" id="namaError">Nama lengkap sudah terdaftar.</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="contoh@email.com" required>
+                    <div class="error-msg" id="emailError">Email tidak valid atau sudah terdaftar.</div>
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp">No. WhatsApp</label>
+                    <input type="tel" id="whatsapp" placeholder="Contoh: 081234567890" required>
+                    <div class="error-msg" id="whatsappError">Nomor tidak valid atau sudah terdaftar.</div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Minimal 8 karakter" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="referral">Kode Referral (Opsional)</label>
+                    <input type="text" id="referral" placeholder="Masukkan kode referral">
+                </div>
+                <div class="checkbox-group" onclick="document.getElementById('agreement').click()">
+                    <input type="checkbox" id="agreement" checked>
+                    <label for="agreement" class="checkbox-label">
+                        Saya menjamin keaslian data dan berkomitmen penuh untuk berkontribusi dalam setiap dinamika yang berlaku.
+                    </label>
+                </div>
+                <button type="submit" class="btn-submit" id="submitBtn">Daftar Sekarang</button>
+            </form>
+        </div>
+        <div class="success-view" id="successContent">
+            <div class="icon-success">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h2>Pendaftaran Berhasil</h2>
+            <p>Terima kasih telah bergabung.</p>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // KONFIGURASI SUDAH TERISI OTOMATIS
+        // ==========================================
+        const SUPABASE_URL = 'https://gkfhdirkjgqootdcaxnk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrZmhkaXJramdxb290ZGNheG5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NzY4MTIsImV4cCI6MjA5MDA1MjgxMn0.2t2eKEhxiuPqERSJKy_z-kpY0FKkAb4VHBplBQcqB64';
+
+        const { createClient } = supabase;
+        const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        let userIP = 'Unknown';
+        let userLocation = 'Unknown';
+
+        async function getIPData() {
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                userIP = data.ip;
+                userLocation = `${data.city}, ${data.country_name}`;
+            } catch (e) { console.error("Gagal deteksi IP"); }
+        }
+        getIPData();
+
+        function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+        function isValidPhone(phone) { return /^(\+62|62|0)8[1-9][0-9]{7,11}$/.test(phone); }
+
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const formContent = document.getElementById('formContent');
+            const successContent = document.getElementById('successContent');
+            
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+
+            const userid = document.getElementById('userid').value.trim();
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const password = document.getElementById('password').value;
+            const referral = document.getElementById('referral').value.trim();
+
+            if (!isValidEmail(email)) {
+                document.getElementById('emailError').textContent = "Format email tidak valid.";
+                document.getElementById('emailError').style.display = 'block'; return;
+            }
+            if (!isValidPhone(whatsapp)) {
+                document.getElementById('whatsappError').textContent = "Format nomor WhatsApp tidak valid.";
+                document.getElementById('whatsappError').style.display = 'block'; return;
+            }
+
+            btn.disabled = true; btn.innerText = "Memproses...";
+
+            const dataInput = {
+                user_id: userid, nama_lengkap: nama, email: email, no_whatsapp: whatsapp,
+                password: password, kode_referral: referral || null,
+                ip_address: userIP, lokasi: userLocation
+            };
+
+            const { data, error } = await _supabase.from('pendaftaran').insert([dataInput]).select();
+
+            if (error) {
+                btn.disabled = false; btn.innerText = "Daftar Sekarang";
+                if (error.code === '23505') {
+                    const errMsg = error.message.toLowerCase();
+                    if (errMsg.includes('email')) { document.getElementById('emailError').textContent = "Email sudah terdaftar."; document.getElementById('emailError').style.display = 'block'; }
+                    else if (errMsg.includes('whatsapp')) { document.getElementById('whatsappError').textContent = "Nomor WhatsApp sudah terdaftar."; document.getElementById('whatsappError').style.display = 'block'; }
+                    else if (errMsg.includes('nama')) { document.getElementById('namaError').style.display = 'block'; }
+                    else if (errMsg.includes('user_id')) { document.getElementById('useridError').style.display = 'block'; }
+                    else { alert("Data sudah terdaftar sebelumnya."); }
+                } else { alert("Terjadi kesalahan sistem."); console.error(error); }
+            } else {
+                formContent.style.display = 'none'; successContent.style.display = 'block'; 
+            }
+        });
+    </script>
+</body>
+</html>
